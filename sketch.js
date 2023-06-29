@@ -7,7 +7,7 @@ const classModel = 'https://teachablemachine.withgoogle.com/models/9_s8Spwr_/'; 
 
 //---SONIDO CONFIG------------------------------------------------------------------------------------------------
 let AMP_MAX= 0.1;
-let AMP_MIN= 0.01;
+let AMP_MIN= 0.02;
 let IMPRIMIR = false;
 
 //ENTRADA DE AUDIO
