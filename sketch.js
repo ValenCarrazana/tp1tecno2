@@ -22,6 +22,8 @@ let puntos = [];
 let cantidad = 1000;
 
 let imagen;
+let imagen2;
+let imagen3;
 let foto;
 let foto1;
 let foto2;
@@ -35,21 +37,76 @@ let imagenesGeneradas = false;
 let imagenesFijas = [];
 let cantPng = 1;
 
-let posicionesPredeterminadas = [
-  [400, 100, 900],
-  [0, 0, 355],
-  [0, 400, 900],
-  [400, 300, 900],
-  [300, 0, 500],
-  [800, 800, 400],
-  [800, 0, 300],
-  [310, 500, -100],
-  [800, 100, 460],
-  [460, 800, 90],
-  [460, 500, 90],
-  [460, 428, 900]
+let usarSegundoCodigo = Math.random() < 0.4;
+let usarPrimerCodigo = Math.random() < 0.2;
+let usarTercerCodigo = Math.random() < 0.4; // Variable para decidir qué código usar
+let posicionesPredeterminadas;
+
+if (usarPrimerCodigo) {
+  posicionesPredeterminadas = [
+    [400, 800, 100],
+    [800, 800, 500],
+    [400, 400, 990],
+    [600, 390, 50],
+    [800, -1 + 150, 400],
+    [800, 400, 200],
+    [800, 180, -50],
+    [400, 400, 100],
+    [80, 400, 800],
+    [-100, 0, 600],
+    [0, 800, 300],
+    [-500, -10, 400]
+    
+  ];
   
-];
+} else if (usarSegundoCodigo){
+  posicionesPredeterminadas = [
+    [400, 100, 900],
+    [0, 0, 355],
+    [0, 400, 900],
+    [400, 300, 900],
+    [300, 0, 500],
+    [800, 800, 400],
+    [800, 0, 300],
+    [310, 500, -100],
+    [800, 100, 460],
+    [460, 800, 90],
+    [460, 500, 90],
+    [460, 428, 900]
+  ];
+
+} else if (usarTercerCodigo){
+  posicionesPredeterminadas = [
+    [400, 0,700], //sup arriba
+    [100, 0,600], //el de el medio arriba fondo
+    [100, 400,800], // chiquito ARRIBA medio
+    [700, 800,100], // chiquito ARRIBA medio
+    [0, 200, 700], // TERCERO
+    [800, 600, 100], //medio bajo derecha
+    [800, 0,500], //ESQ sup DERECHA
+    [0, 800,400], //esquina de abajo izquierda
+    [0, 0,300], //ESQ superior izquerda
+    [800, 800,300], //ESQ INFERIOR DERECHA
+    [800, 800,600], //ESQ INFERIOR DERECHA
+    [0, 200, 500], //ESQ INFERIOR DERECHA  
+  ];
+} else {
+  posicionesPredeterminadas = [
+    [400, 800, 100],
+    [800, 800, 500],
+    [400, 400, 990],
+    [600, 390, 50],
+    [800, -1 + 150, 400],
+    [800, 400, 200],
+    [800, 180, -50],
+    [400, 400, 100],
+    [80, 400, 800],
+    [-100, 0, 600],
+    [0, 800, 300],
+    [-500, -10, 400]
+    
+  ];
+}
 
 //..................................SETUP...................................................
 
@@ -78,8 +135,24 @@ function draw() {
    amp = mic.getLevel();
    haySonido = amp > AMP_MIN;
 
+   ////////////////////////////////////
 
-  grafico.image(imagen, 0, 0, 800, 800);
+
+  if (usarPrimerCodigo){
+   grafico.image(imagen, 0, 0, 800, 800);
+
+  }else if(usarSegundoCodigo){
+   grafico.image(imagen2, 0, 0, 800, 800); 
+
+  }else if(usarTercerCodigo) {
+   grafico.image(imagen3, 0, 0, 800, 800);
+
+  }else {
+    grafico.image(imagen2, 0, 0, 800, 800);
+  }
+  
+
+
   
 
   //dibujar graficos 
@@ -111,6 +184,12 @@ function crearTriangulos() {
   }
 }
 
+//.............................TRIANGULOS........................................................
+
+
+
+
+
 function crearPuntos() {
   for (let i = 0; i < cantidad; i++) {
     puntos[i] = createVector(width, height);
@@ -122,6 +201,10 @@ function crearPuntos() {
 
 function carga() {
   imagen = loadImage('img/gradiente.png');
+  imagen2 = loadImage('img/gradiente2.png');
+  imagen3 = loadImage('img/gradiente3.png');
+
+  //-----
   foto = loadImage('img/forma.png');
   foto1 = loadImage('img/circulo2.png');
   foto2 = loadImage('img/circulo.png');
@@ -129,7 +212,7 @@ function carga() {
   foto4 = loadImage('img/triangulo.png');
 }
 
-//..............CIRCULO..
+//..............CIRCULO.........................................................................
 
 
 function dibujarGrafico_Circulos() {
