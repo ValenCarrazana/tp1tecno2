@@ -1,3 +1,7 @@
+//tiempo
+let tiempoLimite = 2000; // 10 segundos
+let tiempoTranscurrido = 0;
+
 //------CLASIFICADOR-----
 let classifier;
 const options = { probabilityThreshold: 0.7 };
@@ -37,73 +41,73 @@ let imagenesGeneradas = false;
 let imagenesFijas = [];
 let cantPng = 1;
 
-let usarSegundoCodigo = Math.random() < 0.4;
-let usarPrimerCodigo = Math.random() < 0.2;
-let usarTercerCodigo = Math.random() < 0.4; // Variable para decidir qué código usar
+let usarSegundoCodigo = Math.random() < 0.5;
+let usarPrimerCodigo = Math.random() < 0.5;
+let usarTercerCodigo = Math.random() < 0.5; // Variable para decidir qué código usar
 let posicionesPredeterminadas;
 
 if (usarPrimerCodigo) {
   posicionesPredeterminadas = [
-    [400, 800, 100],
-    [800, 800, 500],
-    [400, 400, 990],
-    [600, 390, 50],
-    [800, -1 + 150, 400],
-    [800, 400, 200],
-    [800, 180, -50],
-    [400, 400, 100],
-    [80, 400, 800],
-    [-100, 0, 600],
-    [0, 800, 300],
-    [-500, -10, 400]
+    [800, 800, 700],
+    [0, 0, 200],
+    [500, 800, 0],
+    [200, 0, 800], 
+    [800, 0, 400],
+    [500, 230, 1700],
+    [0, 200, 200],
+    [0, 100, 100], 
+    [0, -10, 800],
+    [0, 100, 440],
+    [500, 450, 900], 
+    [200, 400, 800]
     
   ];
   
 } else if (usarSegundoCodigo){
   posicionesPredeterminadas = [
-    [400, 100, 900],
-    [0, 0, 355],
-    [0, 400, 900],
-    [400, 300, 900],
-    [300, 0, 500],
-    [800, 800, 400],
-    [800, 0, 300],
-    [310, 500, -100],
-    [800, 100, 460],
-    [460, 800, 90],
-    [460, 500, 90],
-    [460, 428, 900]
+    [0, 0, 0], //medio grando abajo 700,700,100
+    [0, 0, 1300],
+    [1000, 590, 0],// MEDIO
+    [0, 0, 0],
+    [0, 0, 0],
+    [0, 0, 0],
+    [0, 0, 600], //arroba lateral iz
+    [310, 290, -100],
+    [500, 0, 800], //HORIZONTal ladso a lado derecha
+    [1460, 800, 90], //parte de baajo iz
+    [0, 0, 0],
+    [0, 0, 0]
   ];
 
 } else if (usarTercerCodigo){
   posicionesPredeterminadas = [
-    [400, 0,700], //sup arriba
-    [100, 0,600], //el de el medio arriba fondo
-    [100, 400,800], // chiquito ARRIBA medio
-    [700, 800,100], // chiquito ARRIBA medio
-    [0, 200, 700], // TERCERO
-    [800, 600, 100], //medio bajo derecha
-    [800, 0,500], //ESQ sup DERECHA
-    [0, 800,400], //esquina de abajo izquierda
-    [0, 0,300], //ESQ superior izquerda
-    [800, 800,300], //ESQ INFERIOR DERECHA
-    [800, 800,600], //ESQ INFERIOR DERECHA
-    [0, 200, 500], //ESQ INFERIOR DERECHA  
+    [0, 0,500], //sup arriba
+    [0, 0,200], //el de el medio arriba fondo
+    [0, 400,800], // chiquito ARRIBA medio
+    [200, -500,700], // chiquito ARRIBA medio
+    [800, 0, 500], // TERCERO
+    [800, 900, 100], //medio bajo derecha
+    [0, 0,0], //ESQ sup DERECHA
+    [0, 0,0], //esquina de abajo izquierda
+    [600, 400,900], //ESQ superior izquerda
+    [0, 0,1900], //ESQ INFERIOR DERECHA
+    [0,560,800], 
+    [100, 800, 900], //ESQ INFERIOR DERECHA  
   ];
 } else {
   posicionesPredeterminadas = [
-    [400, 800, 100],
-    [800, 800, 500],
-    [400, 400, 990],
-    [600, 390, 50],
-    [800, -1 + 150, 400],
-    [800, 400, 200],
-    [800, 180, -50],
-    [400, 400, 100],
-    [80, 400, 800],
-    [-100, 0, 600],
-    [0, 800, 300],
-    [-500, -10, 400]
+    [800, 800, 700],
+    [0, 0, 200],
+    [500, 800, 0],
+    [200, 0, 800], 
+    [800, 0, 400],
+    [500, 230, 1700],
+    [0, 200, 200],
+    [0, 100, 100], 
+    [0, -10, 800],
+    [0, 100, 440],
+    [500, 450, 900], 
+    [200, 400, 800]
     
   ];
 }
@@ -131,6 +135,8 @@ function setup() {
 
 function draw() {
 
+  
+
    //config sonido
    amp = mic.getLevel();
    haySonido = amp > AMP_MIN;
@@ -157,17 +163,20 @@ function draw() {
 
   //dibujar graficos 
   dibujarGrafico_Circulos();
+  dibujarGrafico_Circulos();
+  dibujarGrafico_Circulos();
   dibujarGrafico_LetrasChinas();
   dibujarGrafico_Lineales();
  
   translate(-width / 2, -height / 2);
   
   for (let i = 0; i < cantTri; i++) {
-    
+     triangulos[i].dibujarlinea();
     triangulos[i].dibujar(grafico);
-    
+   
   }
-
+  tiempoTranscurrido ++;
+  console.log("nuemro"+frameCount);
 }
 
 
@@ -213,14 +222,14 @@ function carga() {
 }
 
 //..............CIRCULO.........................................................................
-
-
+console.log("nuemro en ciruclo"+tiempoTranscurrido);
+if(tiempoTranscurrido <= tiempoLimite){
 function dibujarGrafico_Circulos() {
-  if (label == 'silbido') {
+  if (label == 'silbido'&& frameCount<=2000) {
     for (let i = 0; i < cantPng; i++) {
       const posX = random(-800, 800);
       const posY = random(-800, 800);
-      const tam = random(30, 40);
+      const tam = random(10, 20);
       const imagen = random() > 0.5 ? foto1 : foto2;
 
       const superposicion = verificarSuperposicion(posX, posY, tam, tam);
@@ -237,11 +246,11 @@ function dibujarGrafico_Circulos() {
 }
 
 function dibujarGrafico_LetrasChinas() {
-  if (label == 'shh') {
+  if (label == 'shh'&& frameCount<=2000) {
     for (let i = 0; i < cantPng; i++) {
-      const posX = random(-800, 800);
+      const posX = random(-300, 300);
       const posY = random(-800, 800);
-      const tam = random(60, 80);
+      const tam = random(30, 60);
       const imagen = foto4;
 
       const superposicion = verificarSuperposicion(posX, posY, tam, tam);
@@ -258,11 +267,11 @@ function dibujarGrafico_LetrasChinas() {
 }
 
 function dibujarGrafico_Lineales() {
-  if (label == 'aplauso') {
+  if (label == 'aplauso'&& frameCount<=2000) {
     for (let i = 0; i < cantPng; i++) {
       const posX = random(-800, 800);
       const posY = random(-800, 800);
-      const tam = random(80, 90);
+      const tam = random(20, 50);
       const imagen = random() > 0.5 ? foto : foto3;
 
       const superposicion = verificarSuperposicion(posX, posY, tam, tam);
@@ -281,14 +290,15 @@ function dibujarGrafico_Lineales() {
 function verificarSuperposicion(posX, posY, width, height) {
   for (let i = 0; i < imagenesFijas.length; i++) {
     const pos = imagenesFijas[i];
-    const distancia = dist(posX-1700, posY-1500, pos.x, pos.y);
-    if (distancia < width && distancia < height) {
+    const distancia = dist(posX-70, posY-1000, pos.x, pos.y-100);
+    if (distancia < width-80 && distancia < height-80) {
       return true; // Hay superposición
     }
   }
 
   return false; // No hay superposición
 }
+  }
 
 
 //--------CLASIFICADOR-------------------------------------------------------------------------------
